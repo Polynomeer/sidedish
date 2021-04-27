@@ -6,9 +6,10 @@ import java.util.List;
 public class DataTypeUtils {
 
     public static List<String> toList(String s) {
-        s = s.replaceAll("\\[", "");
-        s = s.replaceAll("\\]", "");
-        s = s.replace("\"", "");
+        s = s.replaceAll("\\[", "")
+        .replaceAll("\\]", "")
+        .replace("\"", "")
+        .replace(" ", "");
 
         String[] strings = s.split(",");
 
