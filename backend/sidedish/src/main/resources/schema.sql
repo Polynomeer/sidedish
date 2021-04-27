@@ -1,6 +1,7 @@
 drop table if exists item;
 drop table if exists category;
 drop table if exists `order`;
+drop table if exists user;
 
 create table category (
     category_id bigint primary key,
@@ -31,9 +32,18 @@ create table item (
     constraint category_foreign_id foreign key (category) references category(category_id)
 );
 
+create table user (
+  email varchar(50) primary key ,
+  password varchar(40)
+);
+
 create table `order` (
     order_id bigint auto_increment primary key ,
-    email varchar(500),
+    email varchar(50),
     detail_hash varchar(50),
-    count int
+    count int,
+    constraint item_foreign_id foreign key (detail_hash) references item(detail_hash),
+    constraint user_foreign_id foreign key (email) references user(email)
+
 );
+

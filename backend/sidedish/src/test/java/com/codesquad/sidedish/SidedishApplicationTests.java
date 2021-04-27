@@ -10,4 +10,9 @@ class SidedishApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void exception() {
+		new IllegalArgumentException("argumentException");
+
+	}
 }

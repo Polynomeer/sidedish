@@ -2,6 +2,7 @@ package com.codesquad.sidedish.domain;
 
 import com.codesquad.sidedish.dto.DetailItemDto;
 import com.codesquad.sidedish.dto.ItemDto;
+import com.codesquad.sidedish.exception.OutOfStockException;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 
@@ -58,7 +59,7 @@ public class Item {
     }
 
     public boolean checkStock(int orderCount) {
-        if(this.stock < orderCount) {
+        if (this.stock < orderCount) {
             return false;
         }
         return true;
@@ -75,8 +76,8 @@ public class Item {
     }
 
     public void purchase(int orderCount) {
-        if(!checkStock(orderCount)) {
-            //custom exception 추가 예정
+        if (!checkStock(orderCount)) {
+           throw new OutOfStockException();
         }
         this.stock -= orderCount;
     }

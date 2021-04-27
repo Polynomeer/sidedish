@@ -2,6 +2,8 @@ package com.codesquad.sidedish.domain;
 
 import com.codesquad.sidedish.dto.CategoryDto;
 import com.codesquad.sidedish.dto.ItemDto;
+import com.codesquad.sidedish.exception.ErrorCode;
+import com.codesquad.sidedish.exception.ItemNotFoundException;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
@@ -36,6 +38,10 @@ public class Category {
     }
 
     public Item findItem(String hash) {
+        if (items.get(hash) == null) {
+            throw new ItemNotFoundException(ErrorCode.ITEM_NOT_FOUND);
+        }
+
         return items.get(hash);
     }
 

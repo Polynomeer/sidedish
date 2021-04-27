@@ -4,6 +4,8 @@ import com.codesquad.sidedish.domain.Category;
 import com.codesquad.sidedish.domain.Item;
 import com.codesquad.sidedish.dto.CategoryDto;
 import com.codesquad.sidedish.dto.DetailItemDto;
+import com.codesquad.sidedish.exception.CategoryNotFoundException;
+import com.codesquad.sidedish.exception.ErrorCode;
 import com.codesquad.sidedish.repository.CategoryRepository;
 import com.codesquad.sidedish.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -25,12 +27,12 @@ public class CategoryService {
     }
 
     public DetailItemDto findDetailItemDtoByHash(Long categoryId, String hash) {
-        Item item = categoryRepository.findById(categoryId).orElseThrow(IllegalAccessError::new).findItem(hash);
+        Item item = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException(ErrorCode.CATEGORY_NOT_FOUND)).findItem(hash);
         return Item.createDetailItemDto(item);
     }
 
     public void order(Long categoryId, String hash, int orderCount) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(IllegalArgumentException::new);
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException(ErrorCode.CATEGORY_NOT_FOUND));
         Item item = category.findItem(hash);
         item.purchase(orderCount);
         categoryRepository.save(category);
