@@ -71,13 +71,13 @@ public class Item {
     }
 
     public static DetailItemDto createDetailItemDto(Item item) {
-        return new DetailItemDto(item.detailHash, item.topImage, toList(item.thumbImages), item.productDescription,
-                item.point, item.deliveryInfo, item.deliveryFee, toList(item.prices), toList(item.detailSection));
+        return new DetailItemDto(item.detailHash, item.title, item.topImage, toList(item.thumbImages), item.productDescription,
+                item.point, item.deliveryInfo, item.deliveryFee, toList(item.prices), toList(item.badge), toList(item.detailSection), item.stock);
     }
 
     public void purchase(int orderCount) {
         if (!checkStock(orderCount)) {
-           throw new OutOfStockException();
+            throw new OutOfStockException();
         }
         this.stock -= orderCount;
     }
