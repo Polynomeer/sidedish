@@ -2,6 +2,7 @@ package com.codesquad.sidedish.service;
 
 import com.codesquad.sidedish.domain.Category;
 import com.codesquad.sidedish.domain.Item;
+import com.codesquad.sidedish.domain.Order;
 import com.codesquad.sidedish.dto.CategoryDto;
 import com.codesquad.sidedish.dto.DetailItemDto;
 import com.codesquad.sidedish.exception.CategoryNotFoundException;
@@ -17,9 +18,11 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     CategoryRepository categoryRepository;
+    OrderRepository orderRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, OrderRepository orderRepository) {
         this.categoryRepository = categoryRepository;
+        this.orderRepository = orderRepository;
     }
 
     public List<CategoryDto> findAll() {
@@ -36,6 +39,10 @@ public class CategoryService {
         Item item = category.findItem(hash);
         item.purchase(orderCount);
         categoryRepository.save(category);
+
+        Order order = Order.of("Dion@naver.com", hash, orderCount);
+
+        orderRepository.save(order);
     }
 
 }

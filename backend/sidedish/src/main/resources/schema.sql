@@ -1,6 +1,6 @@
+drop table if exists `order`;
 drop table if exists item;
 drop table if exists category;
-drop table if exists `order`;
 drop table if exists user;
 
 create table category (

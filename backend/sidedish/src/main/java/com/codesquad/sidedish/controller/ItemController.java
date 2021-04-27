@@ -2,6 +2,7 @@ package com.codesquad.sidedish.controller;
 
 import com.codesquad.sidedish.dto.DetailItemDto;
 import com.codesquad.sidedish.service.CategoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,15 +16,15 @@ public class ItemController {
     }
 
     @GetMapping
-    public DetailItemDto getDetailItem(@PathVariable Long categoryId, @PathVariable String hash) {//ItemDTO로 수정
+    public DetailItemDto getDetailItem(@PathVariable Long categoryId, @PathVariable String hash) {
         return categoryService.findDetailItemDtoByHash(categoryId, hash);
     }
 
     @PostMapping
-    public DetailItemDto order(@PathVariable Long categoryId, @PathVariable String hash, int orderCount) {
+    public HttpStatus order(@PathVariable Long categoryId, @PathVariable String hash, int orderCount) {
         categoryService.order(categoryId, hash, orderCount);
 
-        return getDetailItem(categoryId, hash);
+        return HttpStatus.OK;
     }
 
 }
