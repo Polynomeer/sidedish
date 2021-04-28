@@ -26,7 +26,7 @@ create table item (
     point int,
     delivery_info varchar(500),
     delivery_fee varchar(500),
-    prices int,
+    prices varchar(50),
     detail_section varchar(5000),
     stock int,
     constraint category_foreign_id foreign key (category) references category(category_id)
