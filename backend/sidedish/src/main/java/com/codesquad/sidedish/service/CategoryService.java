@@ -11,22 +11,19 @@ import com.codesquad.sidedish.repository.CategoryRepository;
 import com.codesquad.sidedish.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class CategoryService {
 
-    CategoryRepository categoryRepository;
-    OrderRepository orderRepository;
+    private final CategoryRepository categoryRepository;
+    private final OrderRepository orderRepository;
 
     public CategoryService(CategoryRepository categoryRepository, OrderRepository orderRepository) {
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
     }
 
-    public List<CategoryDto> findAll() {
-         return categoryRepository.findAll().stream().map(category -> Category.createCategoryDto(category)).collect(Collectors.toList());
+    public CategoryDto findById(Long id) {
+        return Category.createCategoryDto(categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException(ErrorCode.CATEGORY_NOT_FOUND)));
     }
 
     public DetailItemDto findDetailItemDtoByHash(Long categoryId, String hash) {
