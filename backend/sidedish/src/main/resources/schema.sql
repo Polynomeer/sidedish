@@ -41,9 +41,9 @@ create table `order` (
     order_id bigint auto_increment primary key ,
     email varchar(50),
     detail_hash varchar(50),
-    count int,
-    constraint item_foreign_id foreign key (detail_hash) references item(detail_hash),
-    constraint user_foreign_id foreign key (email) references user(email)
+    count int
+--     constraint item_foreign_id foreign key (detail_hash) references item(detail_hash),
+--     constraint user_foreign_id foreign key (email) references user(email)
 
 );
 

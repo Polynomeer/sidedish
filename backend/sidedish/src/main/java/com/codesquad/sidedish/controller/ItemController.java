@@ -1,6 +1,7 @@
 package com.codesquad.sidedish.controller;
 
 import com.codesquad.sidedish.dto.DetailItemDto;
+import com.codesquad.sidedish.dto.OrderDto;
 import com.codesquad.sidedish.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,8 @@ public class ItemController {
     }
 
     @PostMapping
-    public HttpStatus order(@PathVariable Long categoryId, @PathVariable String hash, int orderCount) {
-        categoryService.order(categoryId, hash, orderCount);
-
+    public HttpStatus order(@PathVariable Long categoryId, @PathVariable String hash, @RequestBody OrderDto orderDto) {
+        categoryService.order(categoryId, hash, orderDto.getCount());
         return HttpStatus.OK;
     }
 
